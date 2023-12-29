@@ -23,7 +23,7 @@ const App: () => void = () => {
             id: Date.now().toString(),
             text: newTaskText,
         }
-        setTasks([...tasks,newTask])
+        setTasks([...tasks, newTask])
     }
 
     const removeTask = (taskId: string) => {
@@ -31,9 +31,13 @@ const App: () => void = () => {
     };
 
     return (
-
+        <div>
+            <TaskForm addTask={addTask}/>
+            {tasks.map((task) => (
+                <Task key={task.id} task={task} removeTask={removeTask}/>
+            ))}
+        </div>
     )
-
 
 
 }
