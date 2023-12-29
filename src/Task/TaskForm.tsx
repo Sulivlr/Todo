@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 
 interface Props {
-    addTask: (task: string) => void;
+    Task: {
+        id: number,
+        text: string,
+    }
+    addTask: React.MouseEventHandler,
+    inputTask?: React.ChangeEventHandler<HTMLInputElement>,
 }
 
-const AddTaskForm: React.FC<Props> = ({ addTask }) => {
-    const [currentTask, setCurrentTask] = useState<string>('');
-
-    const handleAddTask = () => {
-        addTask(currentTask);
-        setCurrentTask('');
-    }
-
+const TaskForm: React.FC<Props> = ({
+                                          Task,
+                                          addTask
+}) => {
     return (
         <div>
-            <input type="text" value={currentTask} placeholder="add something" onChange={(e) => setCurrentTask(e.target.value)} />
-            <button onClick={handleAddTask}>Add something here</button>
+            <span>{Task.text}</span>
+            <button onClick={addTask}>Add task</button>
         </div>
     )
-}
 
-export default AddTaskForm;
+
+}
+export default TaskForm;
