@@ -1,15 +1,15 @@
 import React from "react";
 
 interface Props {
-    task: { id: string; text: string };
-    removeTask: (event: React.MouseEvent<HTMLButtonElement>, taskId: string) => void;
+    task: { id: number; text: string };
+    removeTask: (taskId: number) => void;
 }
 
 const Task: React.FC<Props> = ({ task, removeTask }) => {
     return (
         <div>
             <span>{task.text}</span>
-            <button onClick={(e) => removeTask(e, task.id)}>Delete the task</button>
+            <button onClick={() => removeTask(task.id)}>Delete the task</button>
         </div>
     );
 };
