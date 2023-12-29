@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, { useState } from 'react';
 import TaskForm from "./Task/TaskForm.tsx";
 import Task from "./Task/Task.tsx";
 
@@ -7,40 +7,40 @@ interface Props {
     text: string;
 }
 
-
-class TaskItem {
-}
-
-const App: () => void = () => {
+const App: React.FC = () => {
     const [tasks, setTasks] = useState<Props[]>([
-        {text: 'buy milk', id: 1},
-        {text: 'Walk with dog', id: 2},
-        {text: 'Do homework', id: 3},
+        { text: 'buy milk', id: 1 },
+        { text: 'Walk with dog', id: 2 },
+        { text: 'Do homework', id: 3 },
     ]);
 
     const addTask = (newTaskText: string) => {
-        const newTask: TaskItem = {
-            id: Date.now().toString(),
+        const newTask: Props = {
+            id: Date.now(),
             text: newTaskText,
-        }
-        setTasks([...tasks, newTask])
+        };
+        setTasks([...tasks, newTask]);
     }
 
-    const removeTask = (taskId: string) => {
-        setTasks(tasks.filter((task) => task.id !== taskId));
+    const removeTask = (taskId: number) => {
+        const taskIndex = tasks.findIndex((task) => task.id === taskId);
+
+        if (taskIndex !== -1) {
+            const newTasks = [...tasks];
+            newTasks.splice(taskIndex, 1);
+            setTasks(newTasks);
+        }
     };
 
     return (
         <div>
-            <TaskForm addTask={addTask}/>
+            <TaskForm addTask={addTask} />
             {tasks.map((task) => (
-                <Task key={task.id} task={task} removeTask={removeTask}/>
+                <Task key={task.id} task={task} removeTask={removeTask} />
             ))}
         </div>
-    )
-
-
+    );
 }
 
+export default App;
 
-export default App
